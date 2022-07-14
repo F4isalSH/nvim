@@ -10,6 +10,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 Plug ('akinsho/toggleterm.nvim', {tag = 'v2.*'})
 Plug ('glepnir/dashboard-nvim')
+Plug 'jose-elias-alvarez/null-ls.nvim'
 vim.call('plug#end')
 
 -- Setups
@@ -84,6 +85,27 @@ local db = require('dashboard')
       shortcut = 'SPC f f'},
     }
 
+    require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.formatting.prettier,
+        require("null-ls").builtins.diagnostics.eslint,
+        require("null-ls").builtins.completion.spell,
+    },
+    on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                    -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                    vim.lsp.buf.formatting_sync()
+                end,
+            })
+        end
+    end,
+
+})
 -- Mapping
 function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
@@ -92,7 +114,7 @@ function map(mode, lhs, rhs, opts)
     end
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
-
+map("n", "<C-h>", ":NvimTreeFocus<CR>",{silent = true})
 map("n", "<Space>e", ":NvimTreeToggle<CR>", {silent = true})
 map("n", "<Space>f", ":Telescope find_files<CR>", {silent = true})
 map("i", "jj","<esc>")
