@@ -1,6 +1,7 @@
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
+
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'folke/tokyonight.nvim'
@@ -11,10 +12,13 @@ Plug 'akinsho/bufferline.nvim'
 Plug ('akinsho/toggleterm.nvim', {tag = 'v2.*'})
 Plug ('glepnir/dashboard-nvim')
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug ('neoclide/coc.nvim', {branch= 'release'})
+Plug 'SirVer/ultisnips'
+Plug 'mlaursen/vim-react-snippets'
+
 vim.call('plug#end')
 
--- Setups
-
+-- Setups.
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -106,6 +110,9 @@ local db = require('dashboard')
     end,
 
 })
+
+
+
 -- Mapping
 function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
@@ -127,5 +134,5 @@ map("n","<Space>l",":bn<CR>",{silent = true})
 map("n","<Space>k",":bd<CR>",{silent = true})
 -- Options
 vim.opt.hidden = true                   -- Enable background buffers
-
+vim.cmd('source coc_script.vim')
 
