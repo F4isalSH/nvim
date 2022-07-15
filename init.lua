@@ -15,10 +15,13 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug ('neoclide/coc.nvim', {branch= 'release'})
 Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
+Plug 'windwp/nvim-autopairs'
+
 
 vim.call('plug#end')
 
 -- Setups.
+require("nvim-autopairs").setup{}
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -133,6 +136,4 @@ map("n","<Space>h",":bp<CR>",{silent = true})
 map("n","<Space>l",":bn<CR>",{silent = true})
 map("n","<Space>k",":bd<CR>",{silent = true})
 -- Options
-vim.opt.hidden = true                   -- Enable background buffers
-vim.cmd('source coc_script.vim')
-
+vim.cmd('source $HOME/.config/nvim/coc_config.vim')
