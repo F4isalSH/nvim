@@ -14,11 +14,19 @@ Plug ('glepnir/dashboard-nvim')
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug ('neoclide/coc.nvim', {branch= 'release'})
 Plug 'windwp/nvim-autopairs'
-
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'mlaursen/vim-react-snippets'
 
 vim.call('plug#end')
 
 -- Setups.
+ require('gitsigns').setup{
+    signcolumn = auto,
+    on_attach = function()
+    vim.wo.signcolumn = "yes"
+    end
+    }
+
 require("nvim-autopairs").setup{}
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
@@ -134,4 +142,5 @@ map("n","<Space>h",":bp<CR>",{silent = true})
 map("n","<Space>l",":bn<CR>",{silent = true})
 map("n","<Space>k",":bd<CR>",{silent = true})
 -- Options
+vim.wo.number = true
 vim.cmd("source $HOME/.config/nvim/coc_config.vim")
