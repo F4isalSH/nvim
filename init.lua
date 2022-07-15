@@ -130,7 +130,6 @@ function map(mode, lhs, rhs, opts)
     end
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
-map("n", "<C-h>", ":NvimTreeFocus<CR>",{silent = true})
 map("n", "<Space>e", ":NvimTreeToggle<CR>", {silent = true})
 map("n", "<Space>f", ":Telescope find_files<CR>", {silent = true})
 map("i", "jj","<esc>")
@@ -141,6 +140,8 @@ map("n","<Space>W",":wq<CR>",{silent = true})
 map("n","<Space>h",":bp<CR>",{silent = true})
 map("n","<Space>l",":bn<CR>",{silent = true})
 map("n","<Space>k",":bd<CR>",{silent = true})
+map("n","<c-h>","<c-w>h")
+map("n","<c-l>","<c-w>l")
 -- Options
 vim.wo.number = true
 vim.cmd("source $HOME/.config/nvim/coc_config.vim")
