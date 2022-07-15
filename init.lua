@@ -13,7 +13,6 @@ Plug ('akinsho/toggleterm.nvim', {tag = 'v2.*'})
 Plug ('glepnir/dashboard-nvim')
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug ('neoclide/coc.nvim', {branch= 'release'})
-Plug 'mlaursen/vim-react-snippets'
 Plug 'windwp/nvim-autopairs'
 
 
@@ -135,4 +134,4 @@ map("n","<Space>h",":bp<CR>",{silent = true})
 map("n","<Space>l",":bn<CR>",{silent = true})
 map("n","<Space>k",":bd<CR>",{silent = true})
 -- Options
-vim.cmd('source $HOME/.config/nvim/coc_config.vim')
+vim.cmd("source $HOME/.config/nvim/coc_config.vim")
