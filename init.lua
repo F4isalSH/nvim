@@ -13,7 +13,6 @@ Plug ('akinsho/toggleterm.nvim', {tag = 'v2.*'})
 Plug ('glepnir/dashboard-nvim')
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug ('neoclide/coc.nvim', {branch= 'release'})
-Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
 Plug 'windwp/nvim-autopairs'
 
