@@ -85,7 +85,8 @@ options={
 vim.cmd[[colorscheme tokyonight]]
 require("toggleterm").setup{
   open_mapping = [[<c-\>]],
-terminal_mappings = true
+terminal_mappings = true,
+  direction = 'float'
 }
 
 local db = require('dashboard')
