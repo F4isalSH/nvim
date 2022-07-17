@@ -84,7 +84,7 @@ options={
 }
 vim.cmd[[colorscheme tokyonight]]
 require("toggleterm").setup{
-open_mapping = [[<Leader>]],
+open_mapping = [[<c-;>]],
 terminal_mappings = true,
   direction = 'float'
 }
