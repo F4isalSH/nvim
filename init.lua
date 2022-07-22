@@ -40,7 +40,12 @@ return require("packer").startup(function()
 		open_mapping = [[<c-\>]],
 		direction = "float",
 	})
-	require("gitsigns").setup()
+	require("gitsigns").setup({
+	 signcolumn = auto,
+         on_attach = function()
+         vim.wo.signcolumn = "yes"
+         end
+	})
 	require("colorizer").setup({
 		"css",
 		"javascript",
