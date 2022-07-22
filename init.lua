@@ -9,18 +9,24 @@ return require("packer").startup(function()
 	use({ "akinsho/toggleterm.nvim", tag = "v2.*" })
 	use({ "lewis6991/gitsigns.nvim" })
 	use({ "norcalli/nvim-colorizer.lua" })
-	use({
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.0",
-		-- or                            , branch = '0.1.x',
-		requires = { { "nvim-lua/plenary.nvim" } },
-	})
+	use({"nvim-telescope/telescope.nvim",tag = "0.1.0",requires = { { "nvim-lua/plenary.nvim" } },})
 	use({ "neoclide/coc.nvim", branch = "release" })
-        use 'karb94/neoscroll.nvim'
+        use {'karb94/neoscroll.nvim'}
+	use {'nvim-treesitter/nvim-treesitter',run = ':TSUpdate'}
 	--Configurations
 	vim.opt.termguicolors = true
 	vim.wo.number = true
 	vim.cmd("source $HOME/.config/nvim/coc_config.vim")
+	require'nvim-treesitter.configs'.setup {
+        ensure_installed = { "lua", "javascript","css","html","java","json","typescript","tsx" },
+  	sync_install = false,
+	auto_install = true,
+ 	highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+        },
+       }
+
 	require('neoscroll').setup()
 	require("bufferline").setup({
 		options = {
