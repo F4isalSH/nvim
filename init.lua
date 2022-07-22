@@ -16,6 +16,15 @@ return require("packer").startup(function()
 		-- or                            , branch = '0.1.x',
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
+	use("neovim/nvim-lspconfig")
+	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-buffer")
+	use("hrsh7th/cmp-path")
+	use("hrsh7th/cmp-cmdline")
+	use("hrsh7th/nvim-cmp")
+	use("hrsh7th/cmp-vsnip")
+	use("hrsh7th/vim-vsnip")
+	use("rafamadriz/friendly-snippets")
 
 	--Configurations
 	vim.opt.termguicolors = true
@@ -61,24 +70,61 @@ return require("packer").startup(function()
 			mode = "foreground",
 		},
 	})
+
+	local cmp = require("cmp")
+	cmp.setup({
+		snippet = {
+			-- REQUIRED - you must specify a snippet engine
+			expand = function(args)
+				vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+				-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+				-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+				-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+			end,
+		},
+		window = {
+			-- completion = cmp.config.window.bordered(),
+			-- documentation = cmp.config.window.bordered(),
+		},
+
+		mapping = cmp.mapping.preset.insert({
+			["<C-k>"] = cmp.mapping.select_prev_item(),
+			["<C-j>"] = cmp.mapping.select_next_item(),
+			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
+			["<C-Space>"] = cmp.mapping.complete(),
+			["<C-e>"] = cmp.mapping.abort(),
+			["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		}),
+		sources = cmp.config.sources({
+			{ name = "nvim_lsp" },
+			{ name = "vsnip" }, -- For vsnip users.
+			-- { name = 'luasnip' }, -- For luasnip users.
+			-- { name = 'ultisnips' }, -- For ultisnips users.
+			-- { name = 'snippy' }, -- For snippy users.
+		}, {
+			{ name = "buffer" },
+		}),
+	})
+
 	-- Mapping
-function map(mode, lhs, rhs, opts)
-    local options = { noremap = true }
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-map("n", "<Space>e", ":NvimTreeToggle<CR>", {silent = true})
-map("n", "<Space>f", ":Telescope find_files<CR>", {silent = true})
-map("i", "jj","<esc>")
-map("n","<Space>q",":q<CR>",{silent = true})
-map("n","<Space>Q",":q!<CR>",{silent = true})
-map("n","<Space>w",":w<CR>",{silent = true})
-map("n","<Space>W",":wq<CR>",{silent = true})
-map("n","<S-h>",":bp<CR>",{silent = true})
-map("n","<S-l>",":bn<CR>",{silent = true})
-map("n","<Space>k",":bd<CR>",{silent = true})
-map("n","<c-h>","<c-w>h")
-map("n","<c-l>","<c-w>l")
+	function map(mode, lhs, rhs, opts)
+		local options = { noremap = true }
+		if opts then
+			options = vim.tbl_extend("force", options, opts)
+		end
+		vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+	end
+	map("n", "<Space>e", ":NvimTreeToggle<CR>", { silent = true })
+	map("n", "<Space>f", ":Telescope find_files<CR>", { silent = true })
+	map("i", "jj", "<esc>")
+	map("n", "<Space>q", ":q<CR>", { silent = true })
+	map("n", "<Space>Q", ":q!<CR>", { silent = true })
+	map("n", "<Space>w", ":w<CR>", { silent = true })
+	map("n", "<Space>W", ":wq<CR>", { silent = true })
+	map("n", "<S-h>", ":bp<CR>", { silent = true })
+	map("n", "<S-l>", ":bn<CR>", { silent = true })
+	map("n", "<Space>k", ":bd<CR>", { silent = true })
+	map("n", "<c-h>", "<c-w>h")
+	map("n", "<c-l>", "<c-w>l")
 end)
