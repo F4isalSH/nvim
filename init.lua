@@ -22,8 +22,8 @@ return require("packer").startup(function()
 	vim.wo.number = true
 	local formatting = require("null-ls").builtins.formatting
 	local sources = {
-		formatting.eslint,
 		formatting.prettier,
+		formatting.eslint,
 		formatting.stylua,
 	}
 	require("null-ls").setup({
@@ -35,7 +35,7 @@ return require("packer").startup(function()
 					group = augroup,
 					buffer = bufnr,
 					callback = function()
-						vim.lsp.buf.formatting_sync()
+						vim.lsp.buf.formatting()
 					end,
 				})
 			end
@@ -61,4 +61,24 @@ return require("packer").startup(function()
 			mode = "foreground",
 		},
 	})
+	-- Mapping
+function map(mode, lhs, rhs, opts)
+    local options = { noremap = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+map("n", "<Space>e", ":NvimTreeToggle<CR>", {silent = true})
+map("n", "<Space>f", ":Telescope find_files<CR>", {silent = true})
+map("i", "jj","<esc>")
+map("n","<Space>q",":q<CR>",{silent = true})
+map("n","<Space>Q",":q!<CR>",{silent = true})
+map("n","<Space>w",":w<CR>",{silent = true})
+map("n","<Space>W",":wq<CR>",{silent = true})
+map("n","<S-h>",":bp<CR>",{silent = true})
+map("n","<S-l>",":bn<CR>",{silent = true})
+map("n","<Space>k",":bd<CR>",{silent = true})
+map("n","<c-h>","<c-w>h")
+map("n","<c-l>","<c-w>l")
 end)
