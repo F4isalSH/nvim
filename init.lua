@@ -9,7 +9,6 @@ return require("packer").startup(function()
 	use({ "akinsho/toggleterm.nvim", tag = "v2.*" })
 	use({ "lewis6991/gitsigns.nvim" })
 	use({ "norcalli/nvim-colorizer.lua" })
-	use({ "jose-elias-alvarez/null-ls.nvim" })
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.0",
@@ -21,29 +20,7 @@ return require("packer").startup(function()
 	--Configurations
 	vim.opt.termguicolors = true
 	vim.wo.number = true
-	vim.cmd("source $HOME/.config/nvim/coc_config.vim")	
-	local formatting = require("null-ls").builtins.formatting
-	local sources = {
-		formatting.prettier,
-		formatting.eslint,
-		formatting.stylua,
-	}
-
-	require("null-ls").setup({
-		sources = sources,
-		on_attach = function(client, bufnr)
-			if client.supports_method("textDocument/formatting") then
-				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					group = augroup,
-					buffer = bufnr,
-					callback = function()
-						vim.lsp.buf.formatting()
-					end,
-				})
-			end
-		end,
-	})
+	vim.cmd("source $HOME/.config/nvim/coc_config.vim")
 	require("bufferline").setup({
 		options = {
 			offsets = { { filetype = "NvimTree", text = "File Explorer" } },
