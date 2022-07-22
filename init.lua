@@ -16,11 +16,12 @@ return require("packer").startup(function()
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	use({ "neoclide/coc.nvim", branch = "release" })
-
+        use 'karb94/neoscroll.nvim'
 	--Configurations
 	vim.opt.termguicolors = true
 	vim.wo.number = true
 	vim.cmd("source $HOME/.config/nvim/coc_config.vim")
+	require('neoscroll').setup()
 	require("bufferline").setup({
 		options = {
 			offsets = { { filetype = "NvimTree", text = "File Explorer" } },
