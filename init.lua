@@ -16,7 +16,10 @@ return require("packer").startup(function()
 		-- or                            , branch = '0.1.x',
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
-	use("neovim/nvim-lspconfig")
+	use({
+		"williamboman/nvim-lsp-installer",
+		"neovim/nvim-lspconfig",
+	})
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
@@ -74,18 +77,11 @@ return require("packer").startup(function()
 	local cmp = require("cmp")
 	cmp.setup({
 		snippet = {
-			-- REQUIRED - you must specify a snippet engine
 			expand = function(args)
 				vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-				-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-				-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-				-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
 			end,
 		},
-		window = {
-			-- completion = cmp.config.window.bordered(),
-			-- documentation = cmp.config.window.bordered(),
-		},
+		window = {},
 
 		mapping = cmp.mapping.preset.insert({
 			["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -99,12 +95,19 @@ return require("packer").startup(function()
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "vsnip" }, -- For vsnip users.
-			-- { name = 'luasnip' }, -- For luasnip users.
-			-- { name = 'ultisnips' }, -- For ultisnips users.
-			-- { name = 'snippy' }, -- For snippy users.
 		}, {
 			{ name = "buffer" },
 		}),
+	})
+	require("nvim-lsp-installer").setup({
+		automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+		ui = {
+			icons = {
+				server_installed = "✓",
+				server_pending = "➜",
+				server_uninstalled = "✗",
+			},
+		},
 	})
 
 	-- Mapping
