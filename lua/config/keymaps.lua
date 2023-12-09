@@ -18,3 +18,5 @@ vim.api.nvim_set_keymap("n", "<Space>wh", "<C-w>h", { noremap = true, silent = t
 vim.api.nvim_set_keymap("n", "<Space>wl", "<C-w>l", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<Space>ot", ":term<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("t", "jj", "<C-\\><C-n>", { noremap = true })
