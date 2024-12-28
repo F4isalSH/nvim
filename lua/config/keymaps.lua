@@ -1,7 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
-vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "ff", "<Esc>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<Space>ws", ":split<CR>", { noremap = true, silent = true })
 
@@ -19,4 +19,4 @@ vim.api.nvim_set_keymap("n", "<Space>wl", "<C-w>l", { noremap = true, silent = t
 
 vim.api.nvim_set_keymap("n", "<Space>ot", ":term<CR>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("t", "jj", "<C-\\><C-n>", { noremap = true })
+vim.api.nvim_set_keymap("t", "ff", "<C-\\><C-n>", { noremap = true })
